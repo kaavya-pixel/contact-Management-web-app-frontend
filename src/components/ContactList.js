@@ -12,10 +12,13 @@ const ContactList = () => {
     fetchContacts();
   }, []);
 
+  const API_BASE_URL = "https://contact-management-web-app-backend.onrender.com";
+
   const fetchContacts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('/api/contacts');
+      const response = await axios.get(`${API_BASE_URL}/api/contacts`);
+
       setContacts(response.data.data);
       setError('');
     } catch (err) {
@@ -29,7 +32,8 @@ const ContactList = () => {
   const deleteContact = async (id) => {
     if (window.confirm('Are you sure you want to delete this contact?')) {
       try {
-        await axios.delete(`/api/contacts/${id}`);
+        await axios.delete(`${API_BASE_URL}/api/contacts/${id}`);
+
         setContacts(contacts.filter(contact => contact._id !== id));
       } catch (err) {
         setError('Failed to delete contact. Please try again.');

@@ -26,10 +26,14 @@ const ContactForm = () => {
     }
   }, [id]);
 
+  const API_BASE_URL = "https://contact-management-web-app-backend.onrender.com";
+
+
   const fetchContact = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`/api/contacts/${id}`);
+      const response = await axios.get(`${API_BASE_URL}/api/contacts/${id}`);
+
       setFormData(response.data.data);
       setError('');
     } catch (err) {
@@ -55,9 +59,11 @@ const ContactForm = () => {
 
     try {
       if (isEditing) {
-        await axios.put(`/api/contacts/${id}`, formData);
+        await axios.put(`${API_BASE_URL}/api/contacts/${id}`, formData);
+
       } else {
-        await axios.post('/api/contacts', formData);
+        await axios.post(`${API_BASE_URL}/api/contacts`, formData);
+
       }
       navigate('/');
     } catch (err) {
